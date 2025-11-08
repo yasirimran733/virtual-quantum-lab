@@ -1,45 +1,49 @@
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 
 const simulationCategories = [
   {
     title: 'Classical Mechanics',
     simulations: [
-      { name: 'Projectile Motion', status: 'Coming Soon', icon: '🎯' },
-      { name: 'Pendulum', status: 'Coming Soon', icon: '⏰' },
-      { name: 'Collisions', status: 'Coming Soon', icon: '💥' },
+      { name: 'Projectile Motion', status: 'Available', icon: '🎯', path: '/simulations/projectile-motion' },
+      { name: 'Pendulum', status: 'Available', icon: '⏰', path: '/simulations/pendulum' },
+      { name: 'Collisions', status: 'Available', icon: '💥', path: '/simulations/collisions' },
     ],
   },
   {
     title: 'Electromagnetism',
     simulations: [
-      { name: 'Electric Fields', status: 'Coming Soon', icon: '⚡' },
-      { name: 'Magnetic Fields', status: 'Coming Soon', icon: '🧲' },
+      { name: 'Electric Fields', status: 'Available', icon: '⚡', path: '/simulations/electric-field' },
+      { name: 'Magnetic Fields', status: 'Available', icon: '🧲', path: '/simulations/magnetic-field' },
     ],
   },
   {
     title: 'Waves & Optics',
     simulations: [
-      { name: 'Wave Interference', status: 'Coming Soon', icon: '🌊' },
-      { name: 'Diffraction', status: 'Coming Soon', icon: '🔍' },
+      { name: 'Wave Interference', status: 'Available', icon: '🌊', path: '/simulations/wave-interference' },
+      { name: 'Reflection & Refraction', status: 'Available', icon: '🪞', path: '/simulations/reflection-refraction' },
+      { name: 'Diffraction', status: 'Available', icon: '🔍', path: '/simulations/diffraction' },
     ],
   },
   {
     title: 'Quantum Mechanics',
     simulations: [
-      { name: 'Probability Waves', status: 'Coming Soon', icon: '⚛️' },
-      { name: 'Quantum Tunneling', status: 'Coming Soon', icon: '🚪' },
+      { name: 'Probability Waves', status: 'Available', icon: '⚛️', path: '/simulations/quantum-mechanics' },
+      { name: 'Quantum Tunneling', status: 'Coming Soon', icon: '🚪', path: null },
     ],
   },
   {
     title: 'Relativity',
     simulations: [
-      { name: 'Time Dilation', status: 'Coming Soon', icon: '⏱️' },
-      { name: 'Lorentz Contraction', status: 'Coming Soon', icon: '📏' },
+      { name: 'Time Dilation & Length Contraction', status: 'Available', icon: '⏱️', path: '/simulations/relativity' },
+      { name: 'Spacetime Diagrams', status: 'Coming Soon', icon: '📏', path: null },
     ],
   },
 ]
 
 export const Simulations = () => {
+  const navigate = useNavigate()
+
   return (
     <div className="min-h-screen pt-16 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -76,13 +80,20 @@ export const Simulations = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4, delay: (categoryIndex * 0.1) + (simIndex * 0.05) }}
                     whileHover={{ y: -5 }}
-                    className="glass rounded-xl p-6 card-hover cursor-pointer"
+                    onClick={() => sim.path && navigate(sim.path)}
+                    className={`glass rounded-xl p-6 card-hover ${
+                      sim.path ? 'cursor-pointer' : 'cursor-not-allowed opacity-75'
+                    }`}
                   >
                     <div className="text-4xl mb-4">{sim.icon}</div>
                     <h3 className="text-xl font-display font-semibold mb-2">
                       {sim.name}
                     </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                    <p className={`text-sm mb-4 ${
+                      sim.status === 'Available' 
+                        ? 'text-green-600 dark:text-green-400 font-semibold' 
+                        : 'text-gray-500 dark:text-gray-400'
+                    }`}>
                       {sim.status}
                     </p>
                     <div className="h-1 bg-gradient-to-r from-primary-500 to-purple-500 rounded-full" />
