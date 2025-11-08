@@ -1,0 +1,99 @@
+import { Link, useLocation } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { ThemeToggle } from './ThemeToggle'
+
+const navItems = [
+  { path: '/', label: 'Home', icon: '🏠' },
+  { path: '/simulations', label: 'Simulations', icon: '🔬' },
+  { path: '/builder', label: 'Experiment Builder', icon: '⚙️' },
+  { path: '/learn', label: 'Learn', icon: '📚' },
+  { path: '/about', label: 'About', icon: '🧭' },
+]
+
+export const Navbar = () => {
+  const location = useLocation()
+
+  return (
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="fixed top-0 left-0 right-0 z-50 glass border-b border-gray-200/50 dark:border-dark-700/50"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-2 group">
+            <motion.div
+              whileHover={{ rotate: 360 }}
+              transition={{ duration: 0.6 }}
+              className="text-2xl"
+            >
+              ⚛️
+            </motion.div>
+            <span className="text-xl font-display font-bold gradient-text">
+              Quantum Vision
+            </span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-1">
+            {navItems.map((item) => {
+              const isActive = location.pathname === item.path
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className="relative px-4 py-2 rounded-lg transition-colors duration-200"
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeTab"
+                      className="absolute inset-0 bg-primary-500/10 dark:bg-primary-500/20 rounded-lg"
+                      transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                  <span className="relative flex items-center space-x-2 text-sm font-medium">
+                    <span>{item.icon}</span>
+                    <span className={isActive ? 'text-primary-600 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300'}>
+                      {item.label}
+                    </span>
+                  </span>
+                </Link>
+              )
+            })}
+          </div>
+
+          {/* Theme Toggle */}
+          <div className="flex items-center space-x-4">
+            <ThemeToggle />
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Navigation */}
+      <div className="md:hidden border-t border-gray-200/50 dark:border-dark-700/50">
+        <div className="px-4 py-2 flex space-x-2 overflow-x-auto">
+          {navItems.map((item) => {
+            const isActive = location.pathname === item.path
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
+                  isActive
+                    ? 'bg-primary-500/10 text-primary-600 dark:text-primary-400'
+                    : 'text-gray-700 dark:text-gray-300'
+                }`}
+              >
+                <span>{item.icon}</span>
+                <span>{item.label}</span>
+              </Link>
+            )
+          })}
+        </div>
+      </div>
+    </motion.nav>
+  )
+}
+
