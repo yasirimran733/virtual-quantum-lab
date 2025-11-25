@@ -21,14 +21,17 @@ import SpacetimeDiagrams from './pages/demos/SpacetimeDiagrams'
 import FaradaysLaw from './pages/demos/FaradaysLaw'
 import QRNG from './pages/QRNG'
 import AIAssistant from './pages/AIAssistant'
+import { QuantumEnvironment } from './components/QuantumEnvironment'
 
 function App() {
   return (
     <ThemeProvider>
       <Router>
-        <div className="min-h-screen bg-white dark:bg-dark-900 transition-colors duration-300">
-          <Navbar />
-          <Routes>
+        <div className="relative min-h-screen bg-white dark:bg-dark-900 transition-colors duration-300 overflow-hidden">
+          <QuantumEnvironment />
+          <div className="relative z-10">
+            <Navbar />
+            <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/simulations" element={<Simulations />} />
             <Route path="/simulations/projectile-motion" element={<ProjectileMotion />} />
@@ -49,6 +52,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/qrng" element={<QRNG />} />
           </Routes>
+          </div>
         </div>
       </Router>
     </ThemeProvider>

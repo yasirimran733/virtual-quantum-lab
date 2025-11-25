@@ -65,6 +65,7 @@ export const PhysicsCard = ({
       onHoverEnd={() => setIsHovered(false)}
       onClick={onClick}
       className={`
+        physics-card quantum-depth-panel
         glass rounded-xl p-6
         cursor-pointer
         ${className}

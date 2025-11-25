@@ -81,6 +81,7 @@ export const PhysicsButton = ({
       onClick={onClick}
       disabled={disabled}
       className={`
+        physics-button quantum-depth-surface
         ${variants[variant]} 
         ${sizes[size]} 
         ${className}

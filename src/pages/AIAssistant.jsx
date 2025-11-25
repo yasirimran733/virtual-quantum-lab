@@ -1,9 +1,136 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
-import { sendMessage } from '../utils/deepseekApi' // Note: File name kept for compatibility, but uses Gemini API
+import { askAI } from '../utils/openRouterService'
 import { PhysicsButton } from '../components/physics'
 import { springConfigs } from '../utils/physicsAnimations'
+
+const renderInlineSegments = (text) => {
+  if (!text) return null
+  const segments = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g).filter(Boolean)
+
+  return segments.map((segment, index) => {
+    if (segment.startsWith('**') && segment.endsWith('**')) {
+      return (
+        <strong key={`bold-${index}`} className="text-primary-700 dark:text-primary-300">
+          {segment.slice(2, -2)}
+        </strong>
+      )
+    }
+
+    if (segment.startsWith('`') && segment.endsWith('`')) {
+      return (
+        <code
+          key={`code-${index}`}
+          className="px-1.5 py-0.5 rounded bg-gray-200/70 dark:bg-dark-600 text-xs font-mono text-gray-900 dark:text-gray-100"
+        >
+          {segment.slice(1, -1)}
+        </code>
+      )
+    }
+
+    return segment
+  })
+}
+
+const renderAssistantContent = (content) => {
+  if (!content) return null
+
+  const lines = content.split('\n')
+  const elements = []
+  let listItems = []
+  let listType = null
+  let keyIndex = 0
+
+  const nextKey = (prefix) => `${prefix}-${keyIndex++}`
+
+  const flushList = () => {
+    if (!listItems.length) return
+    const Tag = listType === 'ol' ? 'ol' : 'ul'
+    elements.push(
+      <Tag
+        key={nextKey('list')}
+        className={`pl-5 space-y-1 text-sm md:text-base text-gray-700 dark:text-gray-200 ${
+          listType === 'ol' ? 'list-decimal' : 'list-disc'
+        }`}
+      >
+        {listItems.map((item, idx) => (
+          <li key={nextKey(`item-${idx}`)}>{renderInlineSegments(item)}</li>
+        ))}
+      </Tag>
+    )
+    listItems = []
+    listType = null
+  }
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim()
+
+    if (!line) {
+      flushList()
+      continue
+    }
+
+    if (line.startsWith('### ')) {
+      flushList()
+      elements.push(
+        <h4 key={nextKey('h4')} className="text-base font-semibold text-primary-500 dark:text-primary-300 mt-4 mb-1">
+          {line.slice(4)}
+        </h4>
+      )
+      continue
+    }
+
+    if (line.startsWith('## ')) {
+      flushList()
+      elements.push(
+        <h3 key={nextKey('h3')} className="text-lg font-semibold text-primary-600 dark:text-primary-200 mt-4 mb-1">
+          {line.slice(3)}
+        </h3>
+      )
+      continue
+    }
+
+    if (line.startsWith('# ')) {
+      flushList()
+      elements.push(
+        <h2 key={nextKey('h2')} className="text-xl font-bold text-primary-700 dark:text-primary-100 mt-4 mb-2">
+          {line.slice(2)}
+        </h2>
+      )
+      continue
+    }
+
+    if (line.startsWith('- ') || line.startsWith('* ')) {
+      if (listType && listType !== 'ul') {
+        flushList()
+      }
+      listType = 'ul'
+      listItems.push(line.slice(2))
+      continue
+    }
+
+    const orderedMatch = line.match(/^(\d+)\.\s+(.*)/)
+    if (orderedMatch) {
+      if (listType && listType !== 'ol') {
+        flushList()
+      }
+      listType = 'ol'
+      listItems.push(orderedMatch[2])
+      continue
+    }
+
+    flushList()
+    elements.push(
+      <p key={nextKey('p')} className="text-sm md:text-base text-gray-700 dark:text-gray-200 leading-relaxed mb-2">
+        {renderInlineSegments(line)}
+      </p>
+    )
+  }
+
+  flushList()
+  return elements
+}
 
 /**
  * AI Physics Assistant Page
@@ -64,12 +191,12 @@ export const AIAssistant = () => {
       // Get conversation history (last 10 messages for context)
       const conversationHistory = messages
         .slice(-10)
-        .map(msg => ({
+        .map((msg) => ({
           role: msg.role,
           content: msg.content,
         }))
 
-      const response = await sendMessage(textToSend, conversationHistory)
+      const response = await askAI(textToSend, conversationHistory)
 
       const aiMessage = {
         id: Date.now() + 1,
@@ -241,9 +368,13 @@ export const AIAssistant = () => {
                         </span>
                       </div>
                     )}
-                    <div className="whitespace-pre-wrap break-words text-sm leading-relaxed">
-                      {message.content}
-                    </div>
+                    {message.role === 'assistant' ? (
+                      <div className="space-y-1">{renderAssistantContent(message.content)}</div>
+                    ) : (
+                      <div className="whitespace-pre-wrap break-words text-sm leading-relaxed">
+                        {message.content}
+                      </div>
+                    )}
                     {message.usage && (
                       <div className="mt-2 pt-2 border-t border-gray-200 dark:border-gray-600 text-xs opacity-70">
                         Tokens: {message.usage.totalTokenCount || message.usage.total_tokens || 'N/A'}
