@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from './context/ThemeContext'
 import { Navbar } from './components/Navbar'
+import { Footer } from './components/Footer'
 import { Home } from './pages/Home'
 import { Simulations } from './pages/Simulations'
 import { Learn } from './pages/Learn'
@@ -65,6 +66,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/qrng" element={<QRNG />} />
           </Routes>
+          <Footer />
           </div>
         </div>
       </Router>

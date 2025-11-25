@@ -1,104 +1,181 @@
-# Virtual Quantum Lab - Physics Simulation Platform
+# Virtual Quantum Lab - Advanced Physics Simulation Platform
 
-A modern, browser-based physics simulation and visualization platform built with React, Three.js, and Tailwind CSS.
+[![Deployed on Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=quantum-vision&style=flat-square)](https://virtual-quantum-lab1.vercel.app/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![React](https://img.shields.io/badge/react-%2320232a.svg?style=flat&logo=react&logoColor=%2361DAFB)](https://reactjs.org/)
+[![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=flat&logo=vite&logoColor=white)](https://vitejs.dev/)
 
-## 🚀 Features
+**Virtual Quantum Lab** is a state-of-the-art, interactive physics simulation laboratory designed for students, educators, and enthusiasts. It bridges the gap between abstract theoretical concepts and visual understanding through real-time simulations, immersive 3D environments, and AI-assisted learning.
 
-- **Real-Time Physics Simulations** - Interactive 2D and 3D physics visualizations
-- **Modern UI/UX** - Beautiful, responsive design with smooth animations
-- **Dark Mode** - Seamless light/dark theme switching
-- **Multiple Physics Categories** - Classical Mechanics, Electromagnetism, Waves & Optics, Quantum Mechanics, and Relativity
-- **Experiment Builder** - Drag-and-drop interface for creating custom experiments
-- **Fully Responsive** - Works perfectly on desktop, tablet, and mobile devices
+**[🔴 Live Demo](https://virtual-quantum-lab1.vercel.app/)**
+
+---
+
+## 🚀 Key Features
+
+### 🔬 Interactive Physics Simulations
+
+Explore complex physical phenomena through hands-on manipulation of variables in real-time.
+
+- **Classical Mechanics:**
+  - **Projectile Motion:** Analyze trajectories with adjustable velocity, angle, and gravity.
+  - **Collisions:** Simulate elastic and inelastic collisions in 2D space.
+  - **Pendulum Dynamics:** Observe harmonic motion and damping effects.
+- **Electromagnetism:**
+  - **Electric & Magnetic Fields:** Visualize field lines and charge interactions.
+  - **Faraday's Law:** Interactive generator and motor simulations demonstrating electromagnetic induction.
+- **Waves & Optics:**
+  - **Wave Interference:** Observe constructive and destructive interference patterns.
+  - **Diffraction & Refraction:** Visualize how waves interact with obstacles and mediums.
+- **Quantum Mechanics:**
+  - **Quantum Tunneling:** Visualize probability distributions and barrier penetration.
+  - **Wave Functions:** Interactive representations of quantum states.
+- **Relativity:**
+  - **Spacetime Diagrams:** Visualize time dilation and length contraction.
+
+### 🧠 AI-Powered Learning (QubitAI)
+
+Integrated **QubitAI** assistant, powered by **OpenRouter**, serves as a personal physics tutor.
+
+- **Context-Aware:** Ask questions about the current simulation.
+- **Concept Explanation:** Get detailed breakdowns of complex theories.
+- **Experiment Guide:** Receive suggestions for parameters to try in simulations.
+
+### 🎲 Quantum Random Number Generator (QRNG)
+
+A professional-grade random number generation tool.
+
+- **True Randomness:** Fetches data from the **ANU Quantum Random Numbers API**, measuring quantum vacuum fluctuations.
+- **Classical Fallback:** Robust pseudo-random generation (Math.random) with identical UI/UX for offline use.
+- **Statistical Analysis:** Real-time visualization of distribution, mean, and standard deviation using **Chart.js**.
+- **Export Options:** Generate Hex, Binary, or Integer streams.
+
+### 🎨 Modern Engineering & Design
+
+- **Immersive UI:** Glassmorphism design system built with **Tailwind CSS**.
+- **Dynamic Theming:** Seamless Dark/Light mode switching with persistent state.
+- **3D Visualization:** Utilizes **Three.js** and **React Three Fiber** for stunning background effects and 3D simulation elements.
+- **Custom Physics Engines:** Dedicated JavaScript modules (`src/physics/`) for accurate physical calculations independent of the rendering layer.
+
+---
 
 ## 🛠️ Tech Stack
 
-- **React 18** - UI framework
-- **Vite** - Build tool and dev server
-- **Tailwind CSS** - Styling
-- **Framer Motion** - Animations
-- **Three.js** - 3D graphics (ready for implementation)
-- **React Router** - Navigation
+### Core Framework
 
-## 📦 Installation
+- **React 18:** Component-based UI architecture.
+- **Vite:** Next-generation frontend tooling for lightning-fast builds.
 
-1. Install dependencies:
+### Styling & Animation
+
+- **Tailwind CSS:** Utility-first CSS framework.
+- **Framer Motion:** Production-ready animation library for React.
+- **PostCSS:** Tool for transforming CSS with JavaScript.
+
+### Visualization & Graphics
+
+- **Three.js / React Three Fiber:** WebGL-based 3D graphics.
+- **Chart.js / React-Chartjs-2:** Data visualization for QRNG and physics graphs.
+
+### Logic & State
+
+- **React Router v6:** Client-side routing.
+- **Context API:** Global state management (Theme, User Preferences).
+- **OpenRouter SDK:** AI model integration.
+
+---
+
+## 📂 Project Structure
+
 ```bash
-npm install
+quantum-vision/
+├── src/
+│   ├── components/          # Reusable UI components
+│   │   ├── charts/          # Chart.js wrapper components
+│   │   ├── physics/         # Physics-specific UI controls (Sliders, Inputs)
+│   │   └── visualizations/  # Core simulation rendering logic (Canvas/WebGL)
+│   ├── context/             # Global state providers (ThemeContext)
+│   ├── pages/               # Application routes
+│   │   ├── demos/           # Individual simulation pages (e.g., FaradaysLaw.jsx)
+│   │   ├── learning/        # Educational text and tutorials
+│   │   ├── QRNG.jsx         # Quantum Random Number Generator page
+│   │   └── QubitAI.jsx      # AI Assistant interface
+│   ├── physics/             # Pure JS physics engines (calculations only)
+│   │   ├── ClassicalMechanics.js
+│   │   ├── Electromagnetism.js
+│   │   └── QuantumMechanics.js
+│   ├── utils/               # Helper functions (API, Math, Animations)
+│   ├── App.jsx              # Main application layout and routing
+│   └── main.jsx             # Entry point
+├── public/                  # Static assets
+├── vercel.json              # Vercel deployment configuration
+└── vite.config.js           # Vite configuration
 ```
 
-2. Start the development server:
-```bash
-npm run dev
-```
+---
 
-3. Open your browser and navigate to `http://localhost:3000`
+## 📦 Getting Started
 
-## 🏗️ Build
+### Prerequisites
 
-To create a production build:
+- Node.js (v16 or higher)
+- npm or yarn
+
+### Installation
+
+1.  **Clone the repository**
+
+    ```bash
+    git clone https://github.com/YasirDev786/quantum-vision.git
+    cd quantum-vision
+    ```
+
+2.  **Install dependencies**
+
+    ```bash
+    npm install
+    ```
+
+3.  **Environment Setup (Optional)**
+    To enable the AI features, create a `.env` file in the root directory:
+
+    ```env
+    VITE_OPENROUTER_API_KEY=your_api_key_here
+    ```
+
+4.  **Start Development Server**
+    ```bash
+    npm run dev
+    ```
+    Open `http://localhost:5173` in your browser.
+
+## 🏗️ Building for Production
+
+To create an optimized build for deployment:
 
 ```bash
 npm run build
 ```
 
-The built files will be in the `dist` directory.
+The output will be generated in the `dist` folder.
 
-## 📁 Project Structure
-
-```
-quantum-vision/
-├── src/
-│   ├── components/      # Reusable React components
-│   │   ├── Navbar.jsx
-│   │   ├── Sidebar.jsx
-│   │   └── ThemeToggle.jsx
-│   ├── context/         # React context providers
-│   │   └── ThemeContext.jsx
-│   ├── pages/          # Page components
-│   │   ├── Home.jsx
-│   │   ├── Simulations.jsx
-│   │   ├── ExperimentBuilder.jsx
-│   │   ├── Learn.jsx
-│   │   └── About.jsx
-│   ├── App.jsx         # Main app component
-│   ├── main.jsx        # Entry point
-│   └── index.css      # Global styles
-├── public/             # Static assets
-├── index.html
-├── package.json
-├── tailwind.config.js
-└── vite.config.js
-```
-
-## 🎨 Pages
-
-- **Home** - Hero section with call-to-action buttons and feature overview
-- **Simulations** - Browse available physics simulations (placeholders for now)
-- **Experiment Builder** - Drag-and-drop interface for creating custom experiments
-- **Learn** - Educational content and physics concepts
-- **About** - Project information and team details
-
-## 🌙 Dark Mode
-
-The app includes a fully functional dark mode that:
-- Persists user preference in localStorage
-- Respects system preferences on first visit
-- Smoothly transitions between themes
-
-## 🚧 Coming Soon
-
-- AI Physics Assistant integration
-- Full physics simulation implementations
-- Interactive 3D visualizations with Three.js
-- Experiment saving and sharing
-- Advanced simulation parameters
-
-## 📝 License
-
-This project is open source and available for educational purposes.
+---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+We welcome contributions from the community!
 
+1.  Fork the repository.
+2.  Create a feature branch (`git checkout -b feature/NewSimulation`).
+3.  Commit your changes (`git commit -m 'Add NewSimulation'`).
+4.  Push to the branch (`git push origin feature/NewSimulation`).
+5.  Open a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+_Developed by Code Fusion Company_
