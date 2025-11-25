@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const simulationCategories = [
   {
+    id: 'faraday',
     title: "Faraday's Law & Applications",
     simulations: [
       { name: "Electric Generator", status: 'Available', icon: '🔋', path: '/simulations/faradays-law' },
@@ -11,6 +13,7 @@ const simulationCategories = [
     ],
   },
   {
+    id: 'classical',
     title: 'Classical Mechanics',
     simulations: [
       { name: 'Projectile Motion', status: 'Available', icon: '🎯', path: '/simulations/projectile-motion' },
@@ -19,6 +22,7 @@ const simulationCategories = [
     ],
   },
   {
+    id: 'electromagnetism',
     title: 'Electromagnetism',
     simulations: [
       { name: 'Electric Fields', status: 'Available', icon: '⚡', path: '/simulations/electric-field' },
@@ -26,6 +30,7 @@ const simulationCategories = [
     ],
   },
   {
+    id: 'waves',
     title: 'Waves & Optics',
     simulations: [
       { name: 'Wave Interference', status: 'Available', icon: '🌊', path: '/simulations/wave-interference' },
@@ -34,6 +39,7 @@ const simulationCategories = [
     ],
   },
   {
+    id: 'quantum',
     title: 'Quantum Mechanics',
     simulations: [
       { name: 'Probability Waves', status: 'Available', icon: '⚛️', path: '/simulations/quantum-mechanics' },
@@ -41,6 +47,7 @@ const simulationCategories = [
     ],
   },
   {
+    id: 'relativity',
     title: 'Relativity',
     simulations: [
       { name: 'Time Dilation & Length Contraction', status: 'Available', icon: '⏱️', path: '/simulations/relativity' },
@@ -51,6 +58,19 @@ const simulationCategories = [
 
 export const Simulations = () => {
   const navigate = useNavigate()
+  const location = useLocation()
+
+  useEffect(() => {
+    if (location.hash) {
+      const sectionId = location.hash.replace('#', '')
+      const target = document.getElementById(sectionId)
+      if (target) {
+        requestAnimationFrame(() => {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        })
+      }
+    }
+  }, [location.hash])
 
   return (
     <div className="min-h-screen pt-16 pb-20">
@@ -73,6 +93,7 @@ export const Simulations = () => {
           {simulationCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.title}
+              id={category.id}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}

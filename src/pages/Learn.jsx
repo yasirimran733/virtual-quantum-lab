@@ -1,32 +1,44 @@
 import { motion } from 'framer-motion'
-import AIAssistant from './AIAssistant'
+import { useNavigate } from 'react-router-dom'
 
 const topics = [
   {
+    id: 'faraday',
+    title: "Faraday's Law & Applications",
+    description: 'Electromagnetic induction, generators, transformers, and induction heating',
+    icon: '🌀',
+    concepts: ['Magnetic Flux', 'Faraday\'s Law', 'Lenz\'s Law', 'EMF Induction'],
+  },
+  {
+    id: 'classical',
     title: 'Classical Mechanics',
     description: 'Understanding motion, forces, and energy in everyday objects',
     icon: '🌊',
     concepts: ['Newton\'s Laws', 'Conservation of Energy', 'Momentum', 'Rotational Motion'],
   },
   {
+    id: 'electromagnetism',
     title: 'Electromagnetism',
     description: 'Exploring electric and magnetic fields and their interactions',
     icon: '⚡',
     concepts: ['Electric Fields', 'Magnetic Fields', 'Maxwell\'s Equations', 'Electromagnetic Waves'],
   },
   {
+    id: 'waves',
     title: 'Waves & Optics',
     description: 'Light, sound, and wave phenomena in nature',
     icon: '🌐',
     concepts: ['Wave Interference', 'Diffraction', 'Reflection & Refraction', 'Doppler Effect'],
   },
   {
+    id: 'quantum',
     title: 'Quantum Mechanics',
     description: 'The strange world of particles at the smallest scales',
     icon: '⚛️',
     concepts: ['Wave-Particle Duality', 'Uncertainty Principle', 'Quantum Tunneling', 'Superposition'],
   },
   {
+    id: 'relativity',
     title: 'Relativity',
     description: 'Space, time, and the fabric of the universe',
     icon: '🚀',
@@ -35,6 +47,12 @@ const topics = [
 ]
 
 export const Learn = () => {
+  const navigate = useNavigate()
+
+  const handleTopicClick = (topicId) => {
+    navigate(`/learn/${topicId}`)
+  }
+
   return (
     <div className="min-h-screen pt-16 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -60,6 +78,7 @@ export const Learn = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ y: -10 }}
+              onClick={() => handleTopicClick(topic.id)}
               className="glass rounded-2xl p-6 card-hover cursor-pointer"
             >
               <div className="text-5xl mb-4">{topic.icon}</div>
@@ -88,16 +107,6 @@ export const Learn = () => {
             </motion.div>
           ))}
         </div>
-
-        {/* AI Physics Assistant */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="mt-16"
-        >
-          <AIAssistant />
-        </motion.div>
       </div>
     </div>
   )

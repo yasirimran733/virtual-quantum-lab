@@ -27,36 +27,63 @@ const itemVariants = {
   },
 }
 
-const categories = [
+const simulationHighlights = [
   {
+    id: 'faraday',
+    icon: '🌀',
+    title: "Faraday's Law & Applications",
+    description: 'Electromagnetic induction, generators, and transformers',
+    color: 'from-sky-500 to-purple-500',
+  },
+  {
+    id: 'classical',
     icon: '🌊',
     title: 'Classical Mechanics',
     description: 'Motion, collisions, pendulums, and projectile physics',
     color: 'from-blue-500 to-cyan-500',
   },
   {
+    id: 'electromagnetism',
     icon: '⚡',
     title: 'Electromagnetism',
     description: 'Electric and magnetic field visualizations',
     color: 'from-purple-500 to-pink-500',
   },
   {
+    id: 'waves',
     icon: '🌐',
     title: 'Waves & Optics',
     description: 'Diffraction, interference, reflection, and refraction',
     color: 'from-green-500 to-emerald-500',
   },
   {
+    id: 'quantum',
     icon: '⚛️',
     title: 'Quantum Mechanics',
     description: 'Probability waves, tunneling, and quantum phenomena',
     color: 'from-yellow-500 to-orange-500',
   },
   {
+    id: 'relativity',
     icon: '🚀',
     title: 'Relativity',
     description: 'Time dilation and Lorentz contraction visualizations',
     color: 'from-red-500 to-rose-500',
+  },
+]
+
+const experienceHighlights = [
+  {
+    title: 'Immersive 3D Environment',
+    detail: 'GPU-accelerated visuals and parallax depth inspired by actual lab optics.',
+  },
+  {
+    title: 'AI Physics Mentorship',
+    detail: 'Ask Qubit for instant explanations aligned with your simulation state.',
+  },
+  {
+    title: 'Research-Grade Accuracy',
+    detail: 'Equations validated against classroom and laboratory references.',
   },
 ]
 
@@ -164,6 +191,94 @@ export const Home = () => {
         </div>
       </section>
 
+      {/* Immersive Experience Section */}
+      <section className="py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-2 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="uppercase tracking-widest text-primary-500 font-semibold mb-4">
+                Immersive Quantum Studio
+              </p>
+              <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
+                Built for researchers, students, and dreamers.
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-gray-300">
+                Every pixel is tuned to feel like a real laboratory: layered parallax, floating atoms,
+                and tactile controls invite you to stay longer and explore deeper.
+              </p>
+              <div className="mt-10 space-y-4">
+                {experienceHighlights.map((experience, index) => (
+                  <motion.div
+                    key={experience.title}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="glass rounded-2xl p-5 border border-white/30 dark:border-white/10 shadow-xl"
+                  >
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
+                      {experience.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">{experience.detail}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.6 }}
+              className="space-y-6"
+            >
+              <div className="glass rounded-3xl p-8 shadow-2xl">
+                <p className="text-sm uppercase tracking-[0.3em] text-primary-500 mb-3">
+                  immersive layers
+                </p>
+                <h3 className="text-2xl font-display font-bold mb-4">
+                  Multi-depth UI, responsive on every device.
+                </h3>
+                <ul className="space-y-3 text-gray-700 dark:text-gray-200">
+                  <li className="flex items-start space-x-3">
+                    <span>🔭</span>
+                    <span>3D parallax gradients react to every subtle pointer movement.</span>
+                  </li>
+                  <li className="flex items-start space-x-3">
+                    <span>🛰️</span>
+                    <span>Floating atoms render behind content without affecting performance.</span>
+                  </li>
+                  <li className="flex items-start space-x-3">
+                    <span>🧪</span>
+                    <span>Glassmorphic surfaces keep controls clear against vibrant backgrounds.</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { label: 'GPU-Layered Effects', detail: 'Transforms + opacity only' },
+                  { label: 'Responsive Views', detail: 'Desktop · Tablet · Mobile' },
+                  { label: 'Live Updates', detail: 'Real-time parameter syncing' },
+                  { label: 'AI Guidance', detail: 'Qubit assists instantly' },
+                ].map((card) => (
+                  <div key={card.label} className="glass rounded-2xl p-4 shadow-lg">
+                    <p className="text-xs uppercase tracking-wide text-primary-500 mb-2">
+                      {card.label}
+                    </p>
+                    <p className="text-sm text-gray-700 dark:text-gray-200">{card.detail}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="py-20 bg-gray-50/50 dark:bg-dark-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -175,16 +290,21 @@ export const Home = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-              Explore Physics Categories
+              Launch a Simulation
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400">
-              Dive into different realms of physics with interactive simulations
+              Pick a domain and we will drop you directly into the matching experiment suite.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {categories.map((category, index) => (
-              <Link key={category.title} to="/simulations">
+            {simulationHighlights.map((highlight, index) => (
+              <Link
+                key={highlight.title}
+                to={`/simulations#${highlight.id}`}
+                className="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded-2xl"
+                aria-label={`Open ${highlight.title} simulations`}
+              >
                 <PhysicsCard
                   hoverEffect={index % 2 === 0 ? 'lift' : 'magnetic'}
                   className="h-full"
@@ -208,16 +328,16 @@ export const Home = () => {
                         delay: index * 0.2,
                       }}
                     >
-                      {category.icon}
+                      {highlight.icon}
                     </motion.div>
                     <h3 className="text-xl font-display font-bold mb-2">
-                      {category.title}
+                      {highlight.title}
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400">
-                      {category.description}
+                      {highlight.description}
                     </p>
                     <motion.div 
-                      className={`mt-4 h-1 bg-gradient-to-r ${category.color} rounded-full`}
+                      className={`mt-4 h-1 bg-gradient-to-r ${highlight.color} rounded-full`}
                       initial={{ scaleX: 0 }}
                       whileInView={{ scaleX: 1 }}
                       viewport={{ once: true }}
@@ -255,6 +375,143 @@ export const Home = () => {
                 <div className="text-gray-600 dark:text-gray-400">
                   {stat.label}
                 </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Learning Concepts Section */}
+      <section className="py-20 bg-gray-50/50 dark:bg-dark-800/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
+              <span className="gradient-text">Learn Physics Concepts</span>
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400">
+              Deep dive into physics with detailed explanations, formulas, and visualizations
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {simulationHighlights.map((highlight, index) => (
+              <Link
+                key={`learn-${highlight.title}`}
+                to={`/learn/${highlight.id}`}
+                className="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded-2xl"
+                aria-label={`Learn about ${highlight.title}`}
+              >
+                <PhysicsCard
+                  hoverEffect={index % 2 === 0 ? 'lift' : 'magnetic'}
+                  className="h-full"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ ...springConfigs.bouncy, delay: index * 0.1 }}
+                  >
+                    <motion.div 
+                      className="text-4xl mb-4"
+                      animate={{ 
+                        rotate: [0, 5, -5, 0],
+                        scale: [1, 1.1, 1],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                        delay: index * 0.2,
+                      }}
+                    >
+                      {highlight.icon}
+                    </motion.div>
+                    <h3 className="text-xl font-display font-bold mb-2">
+                      {highlight.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      {highlight.description}
+                    </p>
+                    <motion.div 
+                      className={`mt-4 h-1 bg-gradient-to-r ${highlight.color} rounded-full`}
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ ...springConfigs.gentle, delay: index * 0.1 + 0.3 }}
+                    />
+                  </motion.div>
+                </PhysicsCard>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Qubit AI Assistant Section */}
+      <section className="py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <motion.div
+              animate={{ 
+                rotate: [0, 10, -10, 0],
+                scale: [1, 1.1, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                repeatDelay: 3,
+              }}
+              className="text-6xl mb-4 inline-block"
+            >
+              ⚛️
+            </motion.div>
+            <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
+              <span className="gradient-text">Meet Qubit</span>
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-6">
+              Qubit is your personal AI Physics Assistant. Ask questions, get explanations, solve problems, and explore simulations with AI guidance.
+            </p>
+            <Link to="/qubit-ai">
+              <PhysicsButton
+                variant="primary"
+                size="lg"
+                physicsType="bouncy"
+                className="shadow-lg shadow-primary-500/50 hover:shadow-xl hover:shadow-primary-500/50"
+              >
+                Talk to Qubit
+              </PhysicsButton>
+            </Link>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-6 mt-12">
+            {[
+              { icon: '💬', title: 'Ask Questions', detail: 'Get instant explanations about any physics concept' },
+              { icon: '🧮', title: 'Solve Problems', detail: 'Work through calculations with step-by-step guidance' },
+              { icon: '🔬', title: 'Explore Simulations', detail: 'Understand what you see in interactive experiments' },
+            ].map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <PhysicsCard>
+                  <div className="text-4xl mb-4">{feature.icon}</div>
+                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400">{feature.detail}</p>
+                </PhysicsCard>
               </motion.div>
             ))}
           </div>

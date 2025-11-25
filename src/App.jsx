@@ -20,8 +20,14 @@ import QuantumTunneling from './pages/demos/QuantumTunneling'
 import SpacetimeDiagrams from './pages/demos/SpacetimeDiagrams'
 import FaradaysLaw from './pages/demos/FaradaysLaw'
 import QRNG from './pages/QRNG'
-import AIAssistant from './pages/AIAssistant'
+import QubitAI from './pages/QubitAI'
 import { QuantumEnvironment } from './components/QuantumEnvironment'
+import { FaradayLearning } from './pages/learning/FaradayLearning'
+import { ClassicalMechanicsLearning } from './pages/learning/ClassicalMechanicsLearning'
+import { ElectromagnetismLearning } from './pages/learning/ElectromagnetismLearning'
+import { WavesOpticsLearning } from './pages/learning/WavesOpticsLearning'
+import { QuantumMechanicsLearning } from './pages/learning/QuantumMechanicsLearning'
+import { RelativityLearning } from './pages/learning/RelativityLearning'
 
 function App() {
   return (
@@ -49,6 +55,13 @@ function App() {
             <Route path="/simulations/faradays-law" element={<FaradaysLaw />} />
             <Route path="/faradays-law" element={<FaradaysLaw />} />
             <Route path="/learn" element={<Learn />} />
+            <Route path="/learn/faraday" element={<FaradayLearning />} />
+            <Route path="/learn/classical" element={<ClassicalMechanicsLearning />} />
+            <Route path="/learn/electromagnetism" element={<ElectromagnetismLearning />} />
+            <Route path="/learn/waves" element={<WavesOpticsLearning />} />
+            <Route path="/learn/quantum" element={<QuantumMechanicsLearning />} />
+            <Route path="/learn/relativity" element={<RelativityLearning />} />
+            <Route path="/qubit-ai" element={<QubitAI />} />
             <Route path="/about" element={<About />} />
             <Route path="/qrng" element={<QRNG />} />
           </Routes>

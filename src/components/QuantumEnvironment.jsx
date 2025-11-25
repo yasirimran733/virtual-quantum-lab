@@ -12,12 +12,16 @@ const generateAtoms = () =>
     x: Math.random() * 100,
     y: Math.random() * 100,
     delay: Math.random() * 4,
-    duration: 10 + Math.random() * 8,
+    duration: 12 + Math.random() * 8,
+    depth: (Math.random() - 0.5) * 120,
   }))
 
 export const QuantumEnvironment = () => {
   const { theme } = useTheme()
   const parallaxRef = useRef(null)
+  const pointerTarget = useRef({ x: 0, y: 0 })
+  const pointerCurrent = useRef({ x: 0, y: 0 })
+  const rafRef = useRef(null)
   const atoms = useMemo(() => generateAtoms(), [])
   const particlesInit = useCallback(async (engine) => {
     await loadSlim(engine)
@@ -33,7 +37,7 @@ export const QuantumEnvironment = () => {
       },
       particles: {
         number: {
-          value: 120,
+          value: 140,
           limit: 150,
           density: {
             enable: true,
@@ -44,14 +48,14 @@ export const QuantumEnvironment = () => {
           value: theme === 'dark' ? '#A5B4FC' : '#312E81',
         },
         opacity: {
-          value: { min: 0.15, max: 0.45 },
+          value: { min: 0.1, max: 0.35 },
         },
         size: {
-          value: { min: 1, max: 3.5 },
+          value: { min: 1, max: 3.2 },
         },
         move: {
           enable: true,
-          speed: { min: 0.3, max: 1 },
+          speed: { min: 0.2, max: 0.8 },
           direction: 'none',
           straight: false,
           outModes: {
@@ -77,24 +81,47 @@ export const QuantumEnvironment = () => {
   )
 
   useEffect(() => {
+    const updateParallax = () => {
+      pointerCurrent.current.x += (pointerTarget.current.x - pointerCurrent.current.x) * 0.075
+      pointerCurrent.current.y += (pointerTarget.current.y - pointerCurrent.current.y) * 0.075
+
+      if (parallaxRef.current) {
+        const rotateX = pointerCurrent.current.y * -10
+        const rotateY = pointerCurrent.current.x * 10
+        const translateX = pointerCurrent.current.x * 24
+        const translateY = pointerCurrent.current.y * 24
+
+        parallaxRef.current.style.setProperty('--parallax-rotate-x', `${rotateX}deg`)
+        parallaxRef.current.style.setProperty('--parallax-rotate-y', `${rotateY}deg`)
+        parallaxRef.current.style.setProperty('--parallax-translate-x', `${translateX}px`)
+        parallaxRef.current.style.setProperty('--parallax-translate-y', `${translateY}px`)
+      }
+
+      rafRef.current = requestAnimationFrame(updateParallax)
+    }
+
     const handlePointer = (event) => {
-      if (!parallaxRef.current) return
-      const { innerWidth, innerHeight } = window
-      const rotateX = ((event.clientY / innerHeight) - 0.5) * -6
-      const rotateY = ((event.clientX / innerWidth) - 0.5) * 6
-      parallaxRef.current.style.setProperty('--parallax-rotate-x', `${rotateX}deg`)
-      parallaxRef.current.style.setProperty('--parallax-rotate-y', `${rotateY}deg`)
+      pointerTarget.current = {
+        x: event.clientX / window.innerWidth - 0.5,
+        y: event.clientY / window.innerHeight - 0.5,
+      }
     }
 
     window.addEventListener('pointermove', handlePointer)
-    return () => window.removeEventListener('pointermove', handlePointer)
+    rafRef.current = requestAnimationFrame(updateParallax)
+
+    return () => {
+      window.removeEventListener('pointermove', handlePointer)
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    }
   }, [])
 
   return (
     <div className="quantum-environment pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      <div ref={parallaxRef} className="quantum-parallax-layer">
-        <div className="quantum-gradient-layer quantum-gradient-layer--primary" />
-        <div className="quantum-gradient-layer quantum-gradient-layer--secondary" />
+      <div ref={parallaxRef} className="quantum-parallax">
+        <div className="quantum-parallax-layer quantum-parallax-layer--gradient" />
+        <div className="quantum-parallax-layer quantum-parallax-layer--grid" />
+        <div className="quantum-parallax-layer quantum-parallax-layer--glow" />
       </div>
 
       <Particles
@@ -116,9 +143,11 @@ export const QuantumEnvironment = () => {
               top: `${atom.y}%`,
               animationDelay: `${atom.delay}s`,
               animationDuration: `${atom.duration}s`,
+              transform: `translateZ(${atom.depth}px)`,
             }}
           >
             <div className="quantum-atom-core" />
+            <div className="quantum-atom-shell" />
           </div>
         ))}
       </div>

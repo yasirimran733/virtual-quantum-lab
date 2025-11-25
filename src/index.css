@@ -3,12 +3,20 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --quantum-glow: rgba(79, 70, 229, 0.4);
+    --quantum-highlight: rgba(236, 72, 153, 0.35);
+  }
+
   body {
     @apply bg-white dark:bg-dark-900 text-gray-900 dark:text-gray-100 transition-colors duration-300;
     font-family: 'Inter', system-ui, sans-serif;
-    perspective: 1600px;
+    perspective: 1800px;
+    transform-style: preserve-3d;
     overflow-x: hidden;
-    background-image: linear-gradient(135deg, rgba(49, 46, 129, 0.08), rgba(14, 116, 144, 0.07));
+    background-image: radial-gradient(circle at 20% 20%, rgba(79, 70, 229, 0.08), transparent 55%),
+      radial-gradient(circle at 80% 0%, rgba(236, 72, 153, 0.08), transparent 50%),
+      linear-gradient(135deg, rgba(15, 118, 110, 0.06), rgba(49, 46, 129, 0.05));
   }
 
   html {
@@ -19,92 +27,132 @@
 @layer utilities {
   .glass {
     @apply border border-white/20 dark:border-white/5;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.35));
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.28));
     background-blend-mode: screen;
     backdrop-filter: blur(20px);
+    transform-style: preserve-3d;
+    transition:
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.6s ease,
+      border-color 0.6s ease,
+      opacity 0.6s ease;
     box-shadow:
-      0 10px 40px rgba(79, 70, 229, 0.12),
+      0 18px 45px rgba(79, 70, 229, 0.12),
       0 2px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .glass::before {
+    content: '';
+    position: absolute;
+    inset: 10%;
+    border-radius: inherit;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    pointer-events: none;
+    opacity: 0.35;
+    filter: blur(1px);
   }
 
   .dark .glass {
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.6));
     box-shadow:
-      0 15px 45px rgba(15, 23, 42, 0.35),
-      inset 0 0 25px rgba(59, 130, 246, 0.12);
+      0 20px 45px rgba(15, 23, 42, 0.35),
+      inset 0 0 25px rgba(59, 130, 246, 0.18);
   }
 
   .gradient-text {
     @apply bg-gradient-to-r from-primary-500 via-purple-500 to-pink-500 bg-clip-text text-transparent;
   }
 
-  .card-hover {
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s ease;
-    transform-origin: center;
-    will-change: transform, box-shadow;
-  }
-
-  .card-hover:hover {
-    transform: translate3d(0, -8px, 24px) rotateX(3deg) rotateY(-2deg);
-    box-shadow:
-      0 25px 60px rgba(79, 70, 229, 0.25),
-      0 10px 25px rgba(15, 23, 42, 0.35);
-  }
-
-  .quantum-depth-panel {
+  .card-hover,
+  .quantum-depth-panel,
+  .quantum-depth-surface,
+  .physics-button {
     transform-style: preserve-3d;
-    transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.6s ease, border-color 0.6s ease;
+    transition:
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.55s ease,
+      border-color 0.55s ease,
+      opacity 0.55s ease;
+    will-change: transform, box-shadow;
+    perspective: 1400px;
   }
 
+  .card-hover:hover,
   .quantum-depth-panel:hover {
+    transform: translate3d(0, -10px, 35px) rotateX(3deg) rotateY(-2deg);
+    box-shadow:
+      0 30px 60px rgba(79, 70, 229, 0.28),
+      0 15px 35px rgba(15, 23, 42, 0.35);
+  }
+
+  .quantum-depth-surface:hover,
+  .physics-button:hover {
     transform: translateZ(22px) rotateX(2deg) rotateY(-2deg);
     box-shadow:
-      0 25px 45px rgba(79, 70, 229, 0.18),
-      inset 0 0 30px rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.45);
+      0 20px 40px rgba(99, 102, 241, 0.35),
+      0 10px 25px rgba(15, 23, 42, 0.3);
   }
 
-  .quantum-depth-surface {
-    transform-style: preserve-3d;
-    transition: transform 0.5s ease, box-shadow 0.5s ease;
-    box-shadow: 0 10px 30px rgba(49, 46, 129, 0.15);
-    backdrop-filter: blur(10px);
+  .physics-button {
+    position: relative;
+    overflow: hidden;
   }
 
-  .quantum-depth-surface:hover {
-    transform: translateZ(18px) rotateX(3deg) rotateY(-2deg);
-    box-shadow: 0 15px 35px rgba(79, 70, 229, 0.35);
+  .physics-button::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.35), transparent 55%);
+    opacity: 0;
+    transition: opacity 0.45s ease;
+  }
+
+  .physics-button:hover::after {
+    opacity: 1;
   }
 }
 
 .quantum-environment {
-  perspective: 1200px;
+  perspective: 1600px;
+}
+
+.quantum-parallax {
+  position: absolute;
+  inset: -20%;
+  transform:
+    translate3d(var(--parallax-translate-x, 0px), var(--parallax-translate-y, 0px), 0)
+    rotateX(var(--parallax-rotate-x, 0deg))
+    rotateY(var(--parallax-rotate-y, 0deg));
+  transition: transform 0.2s ease;
+  filter: blur(35px);
 }
 
 .quantum-parallax-layer {
-  position: absolute;
-  inset: -15%;
-  background: radial-gradient(circle at 20% 20%, rgba(165, 180, 252, 0.25), transparent 50%),
-    radial-gradient(circle at 80% 30%, rgba(129, 140, 248, 0.25), transparent 55%),
-    radial-gradient(circle at 50% 80%, rgba(236, 72, 153, 0.2), transparent 60%);
-  transform: rotateX(var(--parallax-rotate-x, 0deg)) rotateY(var(--parallax-rotate-y, 0deg));
-  transition: transform 0.4s ease;
-  filter: blur(40px);
-}
-
-.quantum-gradient-layer {
   position: absolute;
   inset: 0;
   opacity: 0.35;
   mix-blend-mode: screen;
 }
 
-.quantum-gradient-layer--primary {
-  background: radial-gradient(circle at 30% 40%, rgba(59, 130, 246, 0.35), transparent 55%);
+.quantum-parallax-layer--gradient {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.35), transparent 55%),
+    radial-gradient(circle at 80% 40%, rgba(236, 72, 153, 0.35), transparent 65%);
 }
 
-.quantum-gradient-layer--secondary {
-  background: radial-gradient(circle at 70% 60%, rgba(236, 72, 153, 0.35), transparent 65%);
+.quantum-parallax-layer--grid {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 160px 160px;
+  opacity: 0.2;
+}
+
+.quantum-parallax-layer--glow {
+  background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.45), transparent 65%);
+  filter: blur(10px);
+  opacity: 0.4;
 }
 
 .quantum-particles {
@@ -124,42 +172,52 @@
 .quantum-atom {
   position: absolute;
   border-radius: 9999px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(59, 130, 246, 0.35));
-  filter: blur(0.5px);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(59, 130, 246, 0.25));
+  filter: blur(0.35px);
   transform-origin: center;
   animation: quantumOrbit linear infinite;
   mix-blend-mode: screen;
-  box-shadow: 0 0 25px rgba(129, 140, 248, 0.5);
+  box-shadow: 0 0 25px rgba(129, 140, 248, 0.35);
 }
 
 .quantum-atom-core {
   position: absolute;
   inset: 25%;
   border-radius: 9999px;
-  background: radial-gradient(circle, rgba(236, 72, 153, 0.8), transparent);
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.75), transparent);
   filter: blur(6px);
+}
+
+.quantum-atom-shell {
+  position: absolute;
+  inset: -15%;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  opacity: 0.5;
+  filter: blur(2px);
 }
 
 @keyframes quantumOrbit {
   0% {
-    transform: translateZ(0px) rotate3d(1, 1, 0, 0deg);
-    opacity: 0.6;
+    transform: translateZ(0px) rotate3d(1, 1, 0, 0deg) scale(0.95);
+    opacity: 0.5;
   }
   50% {
-    transform: translateZ(80px) rotate3d(1, 1, 0, 180deg);
+    transform: translateZ(90px) rotate3d(1, 1, 0, 180deg) scale(1.05);
     opacity: 0.9;
   }
   100% {
-    transform: translateZ(0px) rotate3d(1, 1, 0, 360deg);
-    opacity: 0.6;
+    transform: translateZ(0px) rotate3d(1, 1, 0, 360deg) scale(0.95);
+    opacity: 0.5;
   }
 }
 
 @media (max-width: 1024px) {
-  .quantum-depth-panel:hover,
   .card-hover:hover,
-  .quantum-depth-surface:hover {
-    transform: translate3d(0, -4px, 12px);
+  .quantum-depth-panel:hover,
+  .quantum-depth-surface:hover,
+  .physics-button:hover {
+    transform: translate3d(0, -4px, 16px);
   }
 
   .quantum-atom {
