@@ -1,11 +1,11 @@
-import { defineConfig, loadEnv } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig, loadEnv } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '')
+  const env = loadEnv(mode, process.cwd(), "");
 
   return {
-    base: '/virtual-quantum-lab/',   // ✅ REQUIRED FOR GITHUB PAGES
+    base: "/",
 
     plugins: [react()],
 
@@ -13,20 +13,20 @@ export default defineConfig(({ mode }) => {
       port: 3000,
       open: true,
       proxy: {
-        '/api/qrng': {
-          target: 'https://qrng.anu.edu.au',
+        "/api/qrng": {
+          target: "https://qrng.anu.edu.au",
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api\/qrng/, '/API/jsonI.php'),
+          rewrite: (path) => path.replace(/^\/api\/qrng/, "/API/jsonI.php"),
           configure: (proxy, options) => {
-            proxy.on('proxyReq', (proxyReq, req, res) => {
-              const apiKey = env.VITE_ANU_QRNG_API_KEY
+            proxy.on("proxyReq", (proxyReq, req, res) => {
+              const apiKey = env.VITE_ANU_QRNG_API_KEY;
               if (apiKey) {
-                proxyReq.setHeader('x-api-key', apiKey)
+                proxyReq.setHeader("x-api-key", apiKey);
               }
-            })
+            });
           },
         },
       },
     },
-  }
-})
+  };
+});
