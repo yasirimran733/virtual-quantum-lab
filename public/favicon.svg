@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a855f7;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background: Dark Squircle -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="#0f172a" />
+  
+  <!-- Main Q Orbital -->
+  <circle cx="32" cy="32" r="20" fill="none" stroke="url(#grad)" stroke-width="5" filter="url(#glow)" />
+  
+  <!-- Particle Trail (Tail of Q) -->
+  <path d="M44 44 L54 54" stroke="#06b6d4" stroke-width="5" stroke-linecap="round" filter="url(#glow)" />
+  
+  <!-- Central Nucleus -->
+  <circle cx="32" cy="32" r="6" fill="#fff" filter="url(#glow)" />
+  
+  <!-- Electron Dot on Orbit -->
+  <circle cx="32" cy="12" r="3" fill="#a855f7" filter="url(#glow)" />
+</svg>
