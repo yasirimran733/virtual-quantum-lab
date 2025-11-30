@@ -9,6 +9,7 @@ const navItems = [
   { path: '/learn', label: 'Learn', icon: '📚' },
   { path: '/qubit-ai', label: 'Qubit AI Assistant', icon: '⚛️' },
   { path: '/qrng', label: 'ANU QRNG', icon: '🌀' },
+  { path: '/download', label: 'Download', icon: '⬇️' },
 ]
 
 export const Navbar = () => {

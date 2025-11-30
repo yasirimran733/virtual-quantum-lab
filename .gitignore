@@ -12,6 +12,18 @@ dist
 dist-ssr
 *.local
 
+# Electron & Build Artifacts
+release/
+build/
+out/
+*.exe
+*.dmg
+*.AppImage
+*.snap
+*.zip
+*.pkg
+*.mas
+
 # Environment variables
 .env
 .env.local

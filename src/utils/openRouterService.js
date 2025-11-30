@@ -5,7 +5,7 @@ const client = new OpenRouter({
     import.meta.env.VITE_OPENROUTER_API_KEY ||
     import.meta.env.OPENROUTER_API_KEY ||
     "",
-  baseURL: "https://openrouter.ai/api/v1"
+  baseURL: "https://openrouter.ai/api/v1",
 });
 
 const systemPrompt = `You are Qubit, an expert quantum physics assistant for the Virtual Quantum Lab platform.
@@ -43,6 +43,15 @@ const normalizeContent = (content) => {
 };
 
 export async function askAI(prompt, conversationHistory = []) {
+  if (!navigator.onLine) {
+    return {
+      message:
+        "# Offline Mode\n\nI am currently offline. Please check your internet connection to ask questions about physics.",
+      usage: null,
+      model: "offline-fallback",
+    };
+  }
+
   if (!prompt || !prompt.trim()) {
     throw new Error("Prompt cannot be empty.");
   }
@@ -55,7 +64,7 @@ export async function askAI(prompt, conversationHistory = []) {
 
   const historyMessages = conversationHistory.map((msg) => ({
     role: msg.role === "assistant" ? "assistant" : "user",
-    content: msg.content
+    content: msg.content,
   }));
 
   const response = await client.chat.send({
@@ -64,8 +73,8 @@ export async function askAI(prompt, conversationHistory = []) {
     messages: [
       { role: "system", content: systemPrompt },
       ...historyMessages,
-      { role: "user", content: prompt }
-    ]
+      { role: "user", content: prompt },
+    ],
   });
 
   const messageContent = normalizeContent(
@@ -79,6 +88,6 @@ export async function askAI(prompt, conversationHistory = []) {
   return {
     message: messageContent,
     usage: response?.usage || null,
-    model: response?.model || "x-ai/grok-4.1-fast:free"
+    model: response?.model || "x-ai/grok-4.1-fast:free",
   };
 }

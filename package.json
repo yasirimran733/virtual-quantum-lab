@@ -2,11 +2,39 @@
   "name": "quantum-vision",
   "private": true,
   "version": "1.0.0",
+  "main": "electron/main.cjs",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "start": "npm run electron:dev",
+    "electron:dev": "concurrently -k \"cross-env BROWSER=none npm run dev\" \"wait-on http://localhost:5173 && electron .\"",
+    "build-electron": "vite build && electron-builder --dir",
+    "build-installer": "vite build && electron-builder",
     "build": "vite build",
     "preview": "vite preview"
+  },
+  "build": {
+    "appId": "com.virtualquantum.lab",
+    "productName": "Virtual Quantum Lab",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "public/favicon.svg"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "publish": null
   },
   "dependencies": {
     "@openrouter/sdk": "^0.1.27",
@@ -15,6 +43,7 @@
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.0.2",
     "chart.js": "^4.5.1",
+    "electron-updater": "^6.6.2",
     "framer-motion": "^10.16.16",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.3.1",
@@ -27,8 +56,13 @@
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.16",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^39.2.4",
+    "electron-builder": "^26.0.12",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.6",
-    "vite": "^5.0.8"
+    "vite": "^5.0.8",
+    "wait-on": "^9.0.3"
   }
 }

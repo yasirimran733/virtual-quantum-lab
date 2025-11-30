@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { isDesktop } from '../config/platform';
 
 const FooterLink = ({ to, children }) => (
   <motion.li
@@ -101,6 +102,27 @@ export const Footer = () => {
         </div>
 
         <div className="border-t border-gray-200 dark:border-dark-800 pt-8 mt-8">
+          {/* Desktop App Banner */}
+          {!isDesktop && (
+            <div className="mb-8 p-6 rounded-2xl bg-gradient-to-r from-primary-900/5 to-purple-900/5 border border-primary-100 dark:border-primary-900/30 flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="flex items-center space-x-4">
+                <div className="p-3 bg-white dark:bg-dark-800 rounded-xl shadow-sm">
+                  <span className="text-2xl">🖥️</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 dark:text-white">Get the Desktop App</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Offline access, better performance, and exclusive features.</p>
+                </div>
+              </div>
+              <Link 
+                to="/download"
+                className="px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors shadow-lg shadow-primary-500/20 whitespace-nowrap"
+              >
+                Download for Windows
+              </Link>
+            </div>
+          )}
+
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-500 dark:text-gray-400">
               &copy; {currentYear} Virtual Quantum Lab. All rights reserved.
