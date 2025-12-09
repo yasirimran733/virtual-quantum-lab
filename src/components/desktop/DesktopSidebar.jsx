@@ -24,9 +24,10 @@ const DesktopSidebar = () => {
 
   const menuItems = [
     { path: '/', icon: '🏠', label: 'Home' },
-    { path: '/simulations', icon: '⚛️', label: 'Simulations' },
-    { path: '/qrng', icon: '🛠️', label: 'Quantum Tools' },
-    { path: '/ai-assistant', icon: '🤖', label: 'AI Assistant' },
+    { path: '/simulations', icon: '🔬', label: 'Simulations' },
+    { path: '/learn', icon: '📚', label: 'Learn' },
+    { path: '/qubit-ai', icon: '⚛️', label: 'Qubit AI Assistant' },
+    { path: '/qrng', icon: '🌀', label: 'ANU QRNG' },
   ];
 
   const handleExit = () => {
@@ -36,7 +37,7 @@ const DesktopSidebar = () => {
   };
 
   return (
-    <div className="w-16 bg-slate-900 border-r border-slate-700 flex flex-col items-center py-4 h-full select-none">
+    <div className="w-16 bg-dark-900 border-r border-dark-800 flex flex-col items-center py-4 h-full select-none">
       <div className="flex-1 w-full flex flex-col gap-4 items-center">
         {menuItems.map((item) => (
           <SidebarItem
@@ -51,16 +52,9 @@ const DesktopSidebar = () => {
       </div>
       
       <div className="w-full flex flex-col gap-4 pb-4 items-center">
-        <SidebarItem
-          icon="⚙️"
-          label="Settings"
-          path="/download"
-          isActive={location.pathname === '/download'}
-          onClick={() => navigate('/download')}
-        />
         <button
           onClick={handleExit}
-          className="w-10 h-10 flex items-center justify-center rounded-lg text-slate-500 hover:text-red-500 hover:bg-slate-800 transition-colors"
+          className="w-10 h-10 flex items-center justify-center rounded-lg text-slate-500 hover:text-red-500 hover:bg-dark-800 transition-colors"
           title="Exit App"
         >
           <div className="text-2xl">🚪</div>

@@ -21,24 +21,11 @@ const DesktopTitleBar = () => {
       {/* Drag Region & Logo */}
       <div className="flex items-center pl-3 app-drag-region">
         <img src="/favicon.svg" alt="App Logo" className="w-4 h-4 mr-3" />
-        
-        {/* Menu Bar */}
-        <div className="flex items-center space-x-1 no-drag h-full">
-          {['File', 'View', 'Tools', 'Help'].map((menu) => (
-            <button 
-              key={menu}
-              className="px-2 py-1 text-xs text-slate-400 hover:bg-slate-800 hover:text-white rounded transition-colors"
-            >
-              {menu}
-            </button>
-          ))}
-        </div>
+        <span className="text-xs text-slate-300 font-medium">Virtual Quantum Lab</span>
       </div>
 
-      {/* Title (Centered) */}
-      <div className="absolute left-1/2 transform -translate-x-1/2 app-drag-region flex-1 text-center">
-        <span className="text-xs text-slate-400 font-medium">Virtual Quantum Lab</span>
-      </div>
+      {/* Spacer to balance the layout since we removed the center title */}
+      <div className="flex-1 app-drag-region"></div>
 
       {/* Window Controls */}
       <div className="flex h-full no-drag">
