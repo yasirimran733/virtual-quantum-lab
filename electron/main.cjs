@@ -92,7 +92,7 @@ function createWindow() {
     width: 1400,
     height: 900,
     title: "Virtual Quantum Lab",
-    icon: path.join(__dirname, "../public/favicon.svg"),
+    icon: path.join(__dirname, "../public/icon.png"),
     frame: false, // Custom title bar
     show: false, // Hide initially until loaded
     webPreferences: {

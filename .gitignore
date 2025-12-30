@@ -44,3 +44,4 @@ out/
 # Ignore markdown files
 *.md
 !README.md
+dist_electron/

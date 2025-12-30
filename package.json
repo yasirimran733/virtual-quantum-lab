@@ -1,5 +1,5 @@
 {
-  "name": "quantum-vision",
+  "name": "virtual-quantum-lab",
   "private": true,
   "version": "1.0.0",
   "main": "electron/main.cjs",
@@ -8,6 +8,7 @@
     "dev": "vite",
     "start": "npm run electron:dev",
     "electron:dev": "concurrently -k \"cross-env BROWSER=none npm run dev\" \"wait-on http://localhost:5173 && electron .\"",
+    "electron:build": "vite build && electron-builder",
     "build-electron": "vite build && electron-builder --dir",
     "build-installer": "vite build && electron-builder",
     "build": "vite build",
@@ -16,8 +17,9 @@
   "build": {
     "appId": "com.virtualquantum.lab",
     "productName": "Virtual Quantum Lab",
+    "icon": "public/icon.png",
     "directories": {
-      "output": "release"
+      "output": "dist_electron"
     },
     "files": [
       "dist/**/*",
