@@ -27,7 +27,6 @@ const DesktopSidebar = () => {
     { path: '/simulations', icon: '🔬', label: 'Simulations' },
     { path: '/learn', icon: '📚', label: 'Learn' },
     { path: '/qubit-ai', icon: '⚛️', label: 'Qubit AI Assistant' },
-    { path: '/qrng', icon: '🌀', label: 'ANU QRNG' },
   ];
 
   const handleExit = () => {

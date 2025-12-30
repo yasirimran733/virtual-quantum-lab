@@ -21,7 +21,6 @@ import Relativity from './pages/demos/Relativity'
 import QuantumTunneling from './pages/demos/QuantumTunneling'
 import SpacetimeDiagrams from './pages/demos/SpacetimeDiagrams'
 import FaradaysLaw from './pages/demos/FaradaysLaw'
-import QRNG from './pages/QRNG'
 import QubitAI from './pages/QubitAI'
 import { QuantumEnvironment } from './components/QuantumEnvironment'
 import { FaradayLearning } from './pages/learning/FaradayLearning'
@@ -60,7 +59,6 @@ function App() {
       <Route path="/learn/quantum" element={<QuantumMechanicsLearning />} />
       <Route path="/learn/relativity" element={<RelativityLearning />} />
       <Route path="/qubit-ai" element={<QubitAI />} />
-      <Route path="/qrng" element={<QRNG />} />
       <Route path="/download" element={<Download />} />
     </Routes>
   );
