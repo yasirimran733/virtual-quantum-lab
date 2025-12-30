@@ -24,7 +24,7 @@ const Download = () => {
             </p>
             
             <motion.a
-              href="https://github.com/yasirimran733/virtual-quantum-lab/releases/tag/v1.0.0"
+              href="https://github.com/yasirimran733/virtual-quantum-lab/releases/tag/v1.0.1"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
@@ -34,7 +34,7 @@ const Download = () => {
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
-              <span>Download for Windows (v1.0.0)</span>
+              <span>Download for Windows (v1.0.1)</span>
             </motion.a>
             <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
               Windows 10/11 (64-bit) • 150MB

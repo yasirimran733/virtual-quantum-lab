@@ -17,21 +17,20 @@ const DesktopTitleBar = () => {
   };
 
   return (
-    <div className="h-8 bg-slate-900 flex items-center justify-between select-none border-b border-slate-700 w-full fixed top-0 left-0 z-50">
+    <div className="h-10 bg-dark-900 flex items-center justify-between select-none border-b border-dark-800 w-full fixed top-0 left-0 z-50 transition-colors duration-300">
       {/* Drag Region & Logo */}
-      <div className="flex items-center pl-3 app-drag-region">
-        <img src="/favicon.svg" alt="App Logo" className="w-4 h-4 mr-3" />
-        <span className="text-xs text-slate-300 font-medium">Virtual Quantum Lab</span>
+      <div className="flex items-center pl-4 h-full app-drag-region flex-1">
+        <div className="flex items-center space-x-3">
+          <div className="w-5 h-5 flex items-center justify-center text-lg">⚛️</div>
+          <span className="text-sm text-gray-300 font-medium tracking-wide">Virtual Quantum Lab</span>
+        </div>
       </div>
-
-      {/* Spacer to balance the layout since we removed the center title */}
-      <div className="flex-1 app-drag-region"></div>
 
       {/* Window Controls */}
       <div className="flex h-full no-drag">
         <button 
           onClick={handleMinimize}
-          className="h-full w-12 flex items-center justify-center hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+          className="h-full w-12 flex items-center justify-center hover:bg-dark-700 text-gray-400 hover:text-white transition-colors focus:outline-none"
           title="Minimize"
         >
           <svg width="10" height="1" viewBox="0 0 10 1">
@@ -41,7 +40,7 @@ const DesktopTitleBar = () => {
         
         <button 
           onClick={handleMaximize}
-          className="h-full w-12 flex items-center justify-center hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+          className="h-full w-12 flex items-center justify-center hover:bg-dark-700 text-gray-400 hover:text-white transition-colors focus:outline-none"
           title={isMaximized ? "Restore" : "Maximize"}
         >
           {isMaximized ? (
@@ -57,7 +56,7 @@ const DesktopTitleBar = () => {
         
         <button 
           onClick={handleClose}
-          className="h-full w-12 flex items-center justify-center hover:bg-red-600 text-slate-400 hover:text-white transition-colors group"
+          className="h-full w-12 flex items-center justify-center hover:bg-red-600 text-gray-400 hover:text-white transition-colors focus:outline-none group"
           title="Close"
         >
           <svg width="10" height="10" viewBox="0 0 10 10" className="group-hover:text-white">
