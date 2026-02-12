@@ -7,6 +7,7 @@ import { Home } from './pages/Home'
 import { Simulations } from './pages/Simulations'
 import { Learn } from './pages/Learn'
 import Download from './pages/Download'
+import QRNG from './pages/QRNG'
 import ProjectileMotion from './pages/demos/ProjectileMotion'
 import Pendulum from './pages/demos/Pendulum'
 import Collisions from './pages/demos/Collisions'
@@ -60,6 +61,7 @@ function App() {
       <Route path="/learn/relativity" element={<RelativityLearning />} />
       <Route path="/qubit-ai" element={<QubitAI />} />
       <Route path="/download" element={<Download />} />
+      <Route path="/qrng" element={<QRNG />} />
     </Routes>
   );
 
