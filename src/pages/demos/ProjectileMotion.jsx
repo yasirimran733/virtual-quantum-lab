@@ -8,6 +8,7 @@ import { simulateProjectile } from '../../physics/ClassicalMechanics'
 import ProjectileVisualization from '../../components/visualizations/ProjectileVisualization'
 import ParameterControl from '../../components/ParameterControl'
 import { ChartJSPhysicsChart as PhysicsChart } from '../../components/charts/ChartJSPhysicsChart'
+import SimulationTutorChat from '../../components/SimulationTutorChat'
 
 export const ProjectileMotion = () => {
   const navigate = useNavigate()
@@ -251,8 +252,8 @@ export const ProjectileMotion = () => {
             </motion.div>
           </div>
 
-          {/* Canvas */}
-          <div className="lg:col-span-3">
+          {/* Canvas, Charts & Tutor */}
+          <div className="lg:col-span-3 space-y-4">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -300,6 +301,13 @@ export const ProjectileMotion = () => {
                 yLabel="Energy (J)"
               />
             </div>
+
+            {/* Simulation Tutor (below graphs) */}
+            <SimulationTutorChat
+              simulationId="projectile-motion"
+              title="Projectile Motion Tutor"
+              subtitle="Ask focused questions about this trajectory and the charts."
+            />
           </div>
         </div>
       </div>

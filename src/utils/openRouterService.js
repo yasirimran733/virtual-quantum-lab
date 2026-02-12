@@ -68,7 +68,7 @@ export async function askAI(prompt, conversationHistory = []) {
   }));
 
   const response = await client.chat.send({
-    model: "x-ai/grok-4.1-fast:free",
+    model: "arcee-ai/trinity-large-preview:free",
     temperature: 0.3,
     messages: [
       { role: "system", content: systemPrompt },
@@ -88,6 +88,6 @@ export async function askAI(prompt, conversationHistory = []) {
   return {
     message: messageContent,
     usage: response?.usage || null,
-    model: response?.model || "x-ai/grok-4.1-fast:free",
+    model: response?.model || "arcee-ai/trinity-large-preview:free",
   };
 }

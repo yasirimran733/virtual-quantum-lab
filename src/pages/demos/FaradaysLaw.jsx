@@ -7,6 +7,7 @@ import { useTheme } from '../../context/ThemeContext'
 import { FaradaysLaw3DVisualization } from '../../components/visualizations/FaradaysLawVisualization'
 import ParameterControl from '../../components/ParameterControl'
 import { ChartJSPhysicsChart as PhysicsChart } from '../../components/charts/ChartJSPhysicsChart'
+import SimulationTutorChat from '../../components/SimulationTutorChat'
 
 export const FaradaysLaw = () => {
   const navigate = useNavigate()
@@ -479,7 +480,7 @@ export const FaradaysLaw = () => {
             </motion.div>
           </div>
 
-          {/* Canvas and Charts */}
+          {/* Canvas, Charts & Tutor */}
           <div className="lg:col-span-3 space-y-6">
             {/* 3D Visualization */}
             <motion.div
@@ -507,48 +508,55 @@ export const FaradaysLaw = () => {
               </Canvas>
             </motion.div>
 
-                {/* Charts */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="glass rounded-xl p-4">
-                    <h3 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
-                      Magnetic Flux vs Time
-                    </h3>
-                    <PhysicsChart
-                      data={chartData.flux}
-                      label="Magnetic Flux"
-                      color="#8b5cf6"
-                      xLabel="Time (s)"
-                      yLabel="Flux (Wb)"
-                      height={180}
-                    />
-                  </div>
-                  <div className="glass rounded-xl p-4">
-                    <h3 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
-                      EMF vs Time
-                    </h3>
-                    <PhysicsChart
-                      data={chartData.emf}
-                      label="EMF"
-                      color="#3b82f6"
-                      xLabel="Time (s)"
-                      yLabel="EMF (V)"
-                      height={180}
-                    />
-                  </div>
-                  <div className="glass rounded-xl p-4">
-                    <h3 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
-                      Current vs Time
-                    </h3>
-                    <PhysicsChart
-                      data={chartData.current}
-                      label="Current"
-                      color="#10b981"
-                      xLabel="Time (s)"
-                      yLabel="Current (A)"
-                      height={180}
-                    />
-                  </div>
-                </div>
+            {/* Charts */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="glass rounded-xl p-4">
+                <h3 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
+                  Magnetic Flux vs Time
+                </h3>
+                <PhysicsChart
+                  data={chartData.flux}
+                  label="Magnetic Flux"
+                  color="#8b5cf6"
+                  xLabel="Time (s)"
+                  yLabel="Flux (Wb)"
+                  height={180}
+                />
+              </div>
+              <div className="glass rounded-xl p-4">
+                <h3 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
+                  EMF vs Time
+                </h3>
+                <PhysicsChart
+                  data={chartData.emf}
+                  label="EMF"
+                  color="#3b82f6"
+                  xLabel="Time (s)"
+                  yLabel="EMF (V)"
+                  height={180}
+                />
+              </div>
+              <div className="glass rounded-xl p-4">
+                <h3 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
+                  Current vs Time
+                </h3>
+                <PhysicsChart
+                  data={chartData.current}
+                  label="Current"
+                  color="#10b981"
+                  xLabel="Time (s)"
+                  yLabel="Current (A)"
+                  height={180}
+                />
+              </div>
+            </div>
+
+            {/* Simulation Tutor (below graphs) */}
+            <SimulationTutorChat
+              simulationId="faradays-law"
+              title="Faraday's Law Tutor"
+              subtitle="Ask about generators, transformers, or induction heating."
+            />
 
             {/* Mode Descriptions */}
             <motion.div
