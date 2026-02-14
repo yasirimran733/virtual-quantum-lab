@@ -8,7 +8,7 @@
 
 **Virtual Quantum Lab** is an interactive physics simulation laboratory designed for students, educators, and enthusiasts. It bridges the gap between abstract theoretical concepts and visual understanding through real-time simulations, immersive 3D environments, and AI‑assisted learning. The project is available as a web app and as a desktop application powered by Electron.
 
-**[🔴 Live Demo](https://virtual-quantum-lab1.vercel.app/)**
+**[🔴 Live Demo](https://virtual-quantum-lab.vercel.app/)**
 
 ---
 
@@ -236,22 +236,4 @@ The static assets will be generated in the `dist` folder and can be deployed to 
 
 ---
 
-## 🤝 Contributing
 
-Contributions are welcome!
-
-1. Fork the repository.
-2. Create a feature branch (`git checkout -b feature/NewSimulation`).
-3. Commit your changes (`git commit -m "Add NewSimulation"`).
-4. Push to the branch (`git push origin feature/NewSimulation`).
-5. Open a Pull Request.
-
----
-
-## 📝 License
-
-This project is licensed under the **MIT License**. See the `LICENSE` file for details.
-
----
-
-_Developed by Code Fusion Company_
